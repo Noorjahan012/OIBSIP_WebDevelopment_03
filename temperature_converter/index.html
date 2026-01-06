@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
 
+    <!-- Link CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Temperature Converter</h2>
+
+    <label>Enter Temperature</label>
+    <input type="text" id="tempInput" placeholder="e.g. 72">
+
+    <label>From</label>
+    <select id="fromUnit">
+        <option value="celsius">Celsius (°C)</option>
+        <option value="fahrenheit">Fahrenheit (°F)</option>
+        <option value="kelvin">Kelvin (K)</option>
+    </select>
+
+    <label>To</label>
+    <select id="toUnit">
+        <option value="celsius">Celsius (°C)</option>
+        <option value="fahrenheit">Fahrenheit (°F)</option>
+        <option value="kelvin">Kelvin (K)</option>
+    </select>
+
+    <button onclick="convertTemp()">Convert</button>
+
+    <label>Result</label>
+    <input type="text" id="result" readonly>
+
+</div>
+
+<script>
+    function convertTemp() {
+        let temp = document.getElementById("tempInput").value;
+        let from = document.getElementById("fromUnit").value;
+        let to = document.getElementById("toUnit").value;
+        let resultBox = document.getElementById("result");
+
+        if (temp === "" || isNaN(temp)) {
+            resultBox.value = "Enter valid number";
+            return;
+        }
+
+        temp = Number(temp);
+        let celsius;
+
+        // Convert FROM → Celsius
+        if (from === "celsius") celsius = temp;
+        else if (from === "fahrenheit") celsius = (temp - 32) * 5/9;
+        else if (from === "kelvin") celsius = temp - 273.15;
+
+        let finalTemp;
+
+        // Convert Celsius → TO
+        if (to === "celsius") finalTemp = celsius;
+        else if (to === "fahrenheit") finalTemp = (celsius * 9/5) + 32;
+        else if (to === "kelvin") finalTemp = celsius + 273.15;
+
+        resultBox.value = finalTemp.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
